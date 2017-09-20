@@ -19,7 +19,6 @@ TEST(TicTacToeBoardTest, sanityCheck)
 {
 	ASSERT_TRUE(true);
 }
-*/
 
 TEST(TicTacToeBoard_is_square, sanityCheck){
 	bool equal = true;
@@ -38,7 +37,7 @@ TEST(TicTacToeBoard_is_3_3, sanityCheck){
 	int sizex = TicTacToeBoard.size();
 	int sizey;
 	
-	if (size x != 3)
+	if (sizex != 3)
 		three = false;
 		
 	for (int i = 0; i < sizex; i++){
@@ -56,6 +55,8 @@ TEST(TicTacToeBoard_is_empty, sanityCheck){
 	ASSERT_TRUE(empty);
 }
 
+*/
+
 TEST(Player_is_returned, sanityCheck){
 	bool returned = true;
 	returned = toggleTurn(); 
@@ -63,22 +64,26 @@ TEST(Player_is_returned, sanityCheck){
 }
 
 TEST(Player_is_valid, sanityCheck){
-	bool valid = false;
-	if (turn == "X" || turn =="O")
-		valid = true;
+	bool valid = true;
+	Piece player;
+	for (int i = 0; i < 2; i++){
+	player = toggleTurn();
+	if (player != X && player != O)
+		valid = false;
+	}
 	ASSERT_TRUE(valid);
 }
 
 TEST(Player_alternates, sanityCheck){
 	bool exes = true;
 	bool ohs = true;
-	player[10] = {0};
+	Piece player[10] = {?};
 	for (int i = 0; i < 10; i++){
 		player[i] = toggleTurn();
 	}
 	int i=0;
 	while((!exes || !ohs) && i < 10){
-		if (i%2);
+		if (i%2)
 			exes = (player[1] == player [i]);
 		else
 			ohs = (player[0] == player[i]);
