@@ -57,17 +57,23 @@ TEST(TicTacToeBoard_is_empty, sanityCheck){
 
 */
 
+TEST(Create_board, sanityCheck){
+	
+}
+
 TEST(Player_is_returned, sanityCheck){
+	TicTacToeBoard TicTac;
 	bool returned = true;
-	returned = toggleTurn(); 
+	returned = TicTac.toggleTurn(); 
 	ASSERT_TRUE(returned);
 }
 
 TEST(Player_is_valid, sanityCheck){
+	TicTacToeBoard TicTac;
 	bool valid = true;
 	Piece player;
 	for (int i = 0; i < 2; i++){
-	player = toggleTurn();
+	player = TicTac.toggleTurn();
 	if (player != X && player != O)
 		valid = false;
 	}
@@ -75,11 +81,12 @@ TEST(Player_is_valid, sanityCheck){
 }
 
 TEST(Player_alternates, sanityCheck){
+	TicTacToeBoard TicTac;
 	bool exes = true;
 	bool ohs = true;
-	Piece player[10] = {?};
+	Piece player[10] = {Invalid};
 	for (int i = 0; i < 10; i++){
-		player[i] = toggleTurn();
+		player[i] = TicTac.toggleTurn();
 	}
 	int i=0;
 	while((!exes || !ohs) && i < 10){
