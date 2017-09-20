@@ -73,12 +73,51 @@ Piece TicTacToeBoard::getPiece(int row, int column)
 **/
 Piece TicTacToeBoard::getWinner()
 {
-  for 
+  bool rowcheck;
+  Piece winner = X;
   
+  for (int i = 0; i < BOARDSIZE; i++){
+    rowcheck = true;
+    for (int j = 0; j < BOARDSIZE; j++){
+      if (board[i][j] != winner){
+        rowcheck = false;
+      }
+    }
+    if (rowcheck)
+      return winner;
+  }
+  for (int i = 0; i < BOARDSIZE; i++){
+    rowcheck = true;
+    for (int j = 0; j < BOARDSIZE; j++){
+      if (board[j][i] != winner){
+        rowcheck = false;
+      }
+    }
+    if (rowcheck)
+      return winner;
+  }
+  rowcheck = true;
+  for (int i = 0, j = 0; i < BOARDSIZE; i++, j++){
+    if (board[i][j] != winner){
+      rowcheck = false;
+    }
+  }
+  if (rowcheck)
+      return winner;
+      
+  rowcheck = true;
+  for (int i = 0, j = BOARDSIZE -1; i<BOARDSIZE; i++, j--){
+    if (board[i][j] != winner){
+      rowcheck = false;
+    }
+  }
+  if (rowcheck)
+    return winner;
+        
   for (int i = 0; i < BOARDSIZE; i++)
     for(int j = 0; j < BOARDSIZE; j++)
       if (board[i][j] == Blank)
-        return Blank;
-  
-  return Invalid;
+        return Invalid;
+
+  return Blank;
 }
