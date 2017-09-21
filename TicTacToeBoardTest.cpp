@@ -57,8 +57,11 @@ TEST(TicTacToeBoard_is_empty, sanityCheck){
 
 */
 
-TEST(Create_board, sanityCheck){
-	
+TEST(Player_alternates, sanityCheck){
+	TicTacToeBoard TicTac;
+	Piece one = TicTac.toggleTurn();
+	Piece two = TicTac.toggleTurn();
+	ASSERT_NE(one, two);
 }
 
 TEST(Player_is_returned, sanityCheck){
@@ -74,28 +77,53 @@ TEST(Player_is_valid, sanityCheck){
 	Piece player;
 	for (int i = 0; i < 2; i++){
 	player = TicTac.toggleTurn();
-	if (player != X && player != O)
+	if ((player != X) && (player != O))
 		valid = false;
 	}
 	ASSERT_TRUE(valid);
 }
 
-TEST(Player_alternates, sanityCheck){
+TEST(Player_alternates_multiple, sanityCheck){
 	TicTacToeBoard TicTac;
-	bool exes = true;
-	bool ohs = true;
-	Piece player[10] = {Invalid};
-	for (int i = 0; i < 10; i++){
-		player[i] = TicTac.toggleTurn();
-	}
-	int i=0;
-	while((!exes || !ohs) && i < 10){
-		if (i%2)
-			exes = (player[1] == player [i]);
-		else
-			ohs = (player[0] == player[i]);
+	Piece one;
+	Piece two;
+	bool equal = false;
+	int i = 0;
 	
-		if (!exes || !ohs)
-			ASSERT_TRUE(false);
+	while((!equal) && (i < 10)){
+		one = TicTac.toggleTurn();
+		two = TicTac.toggleTurn();
+		if (one == two){
+			equal = true;
+		}
+		i++;
 	}
+	ASSERT_FALSE(equal);
+}
+
+TEST(Place_invalid, sanityCheck){
+	TicTacToeBoard TicTac;
+	ASSERT_EQ (TicTac.placePiece(0,4), Invalid);
+}
+
+TEST(Place_on_existing, sanityCheck){
+	TicTacToeBoard TicTac;
+	Piece one = TicTac.placePiece(0,0);
+	ASSERT_EQ(TicTac.placePiece(0,0), one);
+}
+
+TEST(Place_is_Valid, sanityCheck){
+	TicTacToeBoard TicTac;
+	TicTac.placePiece(0,0);
+	ASSERT_EQ(TicTac.getPiece(0,0), X);
+}
+
+TEST(Place_on_full_board, sanityCheck){
+	TicTacToeBoard TicTac;
+	for(int i = 0; i < BOARDSIZE; i++){
+		for (int j = 0; j < BOARDSIZE; j++)
+			TicTac.placePiece(i,j);
+	}
+	ASSERT_EQ(TicTac.placePiece(1,2), Invalid);
+				
 }
