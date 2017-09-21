@@ -64,7 +64,7 @@ TEST(Player_alternates, sanityCheck){
 	ASSERT_NE(one, two);
 }
 
-TEST(Player_is_returned, sanityCheck){
+TEST(Player_value_is_returned, sanityCheck){
 	TicTacToeBoard TicTac;
 	bool returned = true;
 	returned = TicTac.toggleTurn(); 
@@ -90,12 +90,11 @@ TEST(Player_alternates_multiple, sanityCheck){
 	bool equal = false;
 	int i = 0;
 	
-	while((!equal) && (i < 10)){
+	while((!equal) && (i < 2)){
 		one = TicTac.toggleTurn();
 		two = TicTac.toggleTurn();
-		if (one == two){
+		if (one == two)
 			equal = true;
-		}
 		i++;
 	}
 	ASSERT_FALSE(equal);
@@ -112,18 +111,65 @@ TEST(Place_on_existing, sanityCheck){
 	ASSERT_EQ(TicTac.placePiece(0,0), one);
 }
 
-TEST(Place_is_Valid, sanityCheck){
+TEST(Place_is_valid, sanityCheck){
 	TicTacToeBoard TicTac;
 	TicTac.placePiece(0,0);
 	ASSERT_EQ(TicTac.getPiece(0,0), X);
 }
 
+// This test fails because of my bug in the earlier code... it took me a while to figure that one out
 TEST(Place_on_full_board, sanityCheck){
 	TicTacToeBoard TicTac;
-	for(int i = 0; i < BOARDSIZE; i++){
+	for(int i = 0; i < BOARDSIZE; i++)
 		for (int j = 0; j < BOARDSIZE; j++)
 			TicTac.placePiece(i,j);
-	}
 	ASSERT_EQ(TicTac.placePiece(1,2), Invalid);
-				
+}
+
+TEST(Player_is_returned, sanityCheck){
+	TicTacToeBoard TicTac;
+	ASSERT_TRUE(TicTac.getPiece(0,0));
+}
+
+TEST(Correct_player_is_returned, sanityCheck){
+	TicTacToeBoard TicTac;
+	Piece set = TicTac.placePiece(1,2);
+	ASSERT_EQ(set, TicTac.getPiece(1,2));
+}
+
+// The following tests also all fail due to my bug
+TEST(Game_is_over, sanityCheck){
+	TicTacToeBoard TicTac;
+	for(int i = 0; i < BOARDSIZE; i++)
+		for (int j = 0; j < BOARDSIZE; j++)
+			TicTac.placePiece(i,j);
+	ASSERT_NE(TicTac.getWinner(), Invalid);
+}
+
+TEST(Game_is_draw, sanityCheck){
+	TicTacToeBoard TicTac;
+	TicTac.placePiece(0,0); //x
+	TicTac.placePiece(1,0); //o
+	TicTac.placePiece(2,0); //x
+	TicTac.placePiece(0,1); //o
+	TicTac.placePiece(1,1); //x
+	TicTac.placePiece(0,2); //o
+	TicTac.placePiece(2,1);
+	TicTac.placePiece(2,2);
+	TicTac.placePiece(1,2);
+	ASSERT_EQ(TicTac.getWinner(), Blank);
+}
+
+TEST(Winner_is_returned, sanityCheck){
+	TicTacToeBoard TicTac;
+	TicTac.placePiece(0,0); //x
+	TicTac.placePiece(1,0); //o
+	TicTac.placePiece(2,0); //x
+	TicTac.placePiece(0,1); //o
+	TicTac.placePiece(1,1); //x
+	TicTac.placePiece(0,2); //o
+	TicTac.placePiece(2,2); //x
+	TicTac.placePiece(2,1); //o
+	TicTac.placePiece(1,2); //x
+	ASSERT_EQ(TicTac.getWinner(), X);
 }
