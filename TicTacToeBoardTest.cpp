@@ -83,6 +83,9 @@ TEST(Player_is_valid, sanityCheck){
 	ASSERT_TRUE(valid);
 }
 
+/* 
+BUG: This test fails because X != Blank. Also checks 9 times due to the toggle turn theoretically being called 9 times to fill the board.
+*/
 TEST(Player_alternates_multiple, sanityCheck){
 	TicTacToeBoard TicTac;
 	Piece one;
@@ -90,7 +93,7 @@ TEST(Player_alternates_multiple, sanityCheck){
 	bool equal = false;
 	int i = 0;
 	
-	while((!equal) && (i < 2)){
+	while((!equal) && (i < 9)){
 		one = TicTac.toggleTurn();
 		two = TicTac.toggleTurn();
 		if (one == two)
