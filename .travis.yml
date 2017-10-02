@@ -1,5 +1,8 @@
 sudo: enabled
 
+notifcations:
+  email: false
+
 language: cpp
 
 before_install:
