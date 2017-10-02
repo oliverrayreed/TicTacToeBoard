@@ -31,7 +31,7 @@ Piece TicTacToeBoard::toggleTurn()
     return O;
   }
   else {
-    turn = Blank;
+    turn = X;
     return X;
   }
 }
