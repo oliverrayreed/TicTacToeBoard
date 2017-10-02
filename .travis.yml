@@ -13,4 +13,4 @@ before_install:
 script:
 - make clean
 - make
-- ./RandoTest
+- ./TicTacToeBoardTest
