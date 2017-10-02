@@ -1,3 +1,5 @@
+sudo: enable
+
 language: cpp
 
 before_install:
